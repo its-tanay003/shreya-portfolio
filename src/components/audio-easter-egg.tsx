@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
-import { Howl } from "howler"
+
 import { Sparkles } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"

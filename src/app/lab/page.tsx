@@ -1,8 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useState, useRef, useEffect } from "react"
-import Link from "next/link"
+import { useState } from "react"
 
 const experiments = [
   { id: 1, title: "Liquid Dynamics", status: "Active" },
