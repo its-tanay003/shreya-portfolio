@@ -97,7 +97,7 @@ export default function Home() {
       <HorizontalScroll />
 
       {/* Featured Projects Teaser */}
-      <section className="py-24 px-6 max-w-7xl mx-auto relative z-10 bg-background">
+      <section className="py-24 px-6 max-w-7xl mx-auto relative z-10 bg-transparent">
         <div className="flex justify-between items-end mb-16">
           <h2 className="font-display text-4xl md:text-6xl uppercase font-bold tracking-tighter">Selected Works</h2>
           <Link href="/work" className="font-sans text-sm md:text-base tracking-widest uppercase hover:text-bubblegum transition-colors mb-2" data-cursor-text="ALL WORK">
@@ -134,7 +134,7 @@ export default function Home() {
       </section>
 
       {/* Stats Bar */}
-      <section className="py-12 border-y border-foreground/10 bg-background flex flex-wrap justify-around items-center gap-8 relative z-10">
+      <section className="py-12 border-y border-foreground/10 bg-background/20 backdrop-blur-md flex flex-wrap justify-around items-center gap-8 relative z-10">
         {[
           { num: "5+", label: "Projects" },
           { num: "3", label: "Design Disciplines" },
@@ -178,7 +178,7 @@ function HorizontalScroll() {
   ]
 
   return (
-    <section ref={targetRef} className="relative h-[400vh] bg-background">
+    <section ref={targetRef} className="relative h-[400vh] bg-transparent">
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         <motion.div style={{ x }} className="flex">
           {panels.map((panel, i) => (

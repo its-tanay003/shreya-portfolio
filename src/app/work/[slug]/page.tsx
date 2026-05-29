@@ -21,7 +21,7 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"])
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-background text-foreground">
+    <div ref={containerRef} className="relative min-h-screen bg-transparent text-foreground">
       {/* Parallax Hero */}
       <div className="relative h-screen w-full overflow-hidden">
         <motion.div 
@@ -47,7 +47,7 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-24 flex flex-col md:flex-row gap-16 relative z-20 bg-background">
+      <div className="max-w-7xl mx-auto px-6 py-24 flex flex-col md:flex-row gap-16 relative z-20 bg-transparent">
         {/* Sticky Metadata Sidebar */}
         <div className="w-full md:w-1/4">
           <div className="sticky top-32 flex flex-col gap-8">

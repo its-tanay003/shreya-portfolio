@@ -6,7 +6,7 @@ import { ArrowLeft, Hexagon } from "lucide-react"
 
 export default function NotFound() {
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-background px-6">
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-transparent px-6">
       {/* Dynamic Cosmic Background */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-40">
         <motion.div 

@@ -45,13 +45,13 @@ export default function Services() {
           {["Brief", "Concept", "Execute", "Deliver"].map((step, i) => (
             <motion.div 
               key={step}
-              className="z-10 bg-background flex flex-col items-center text-center p-4"
+              className="z-10 bg-transparent flex flex-col items-center text-center p-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.2 }}
             >
-              <div className="w-16 h-16 rounded-full border border-foreground/20 flex items-center justify-center font-display text-2xl mb-4 bg-background">
+              <div className="w-16 h-16 rounded-full border border-foreground/20 flex items-center justify-center font-display text-2xl mb-4 bg-background/20 backdrop-blur-md">
                 {i + 1}
               </div>
               <h3 className="font-sans uppercase tracking-widest text-sm font-bold">{step}</h3>

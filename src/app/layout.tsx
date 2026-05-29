@@ -9,6 +9,7 @@ import { Footer } from "@/components/footer";
 import { Preloader } from "@/components/preloader";
 import { PageTransition } from "@/components/page-transition";
 import { AudioEasterEgg } from "@/components/audio-easter-egg";
+import { GlobalBackground } from "@/components/global-background";
 
 const syne = Syne({ 
   subsets: ["latin"],
@@ -47,6 +48,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <GlobalBackground />
           <Preloader />
           <Cursor />
           <AudioEasterEgg />
