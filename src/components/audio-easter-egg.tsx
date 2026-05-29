@@ -10,11 +10,7 @@ export function AudioEasterEgg() {
   const [showToast, setShowToast] = useState(false)
 
   useEffect(() => {
-    // Placeholder sound - using a short UI blip sound from a public URL
-    const sound = new Howl({
-      src: ['https://actions.google.com/sounds/v1/ui/complete.ogg'],
-      volume: 0.5,
-    })
+    // Visual-only Easter Egg (Audio removed to fix 404)
 
     let buffer: string[] = []
     const secretCode = "DESIGN"
@@ -29,7 +25,6 @@ export function AudioEasterEgg() {
       }
 
       if (buffer.join("") === secretCode) {
-        sound.play()
         setShowToast(true)
         setTimeout(() => setShowToast(false), 3000)
         buffer = []

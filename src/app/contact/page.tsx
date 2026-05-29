@@ -153,6 +153,7 @@ export default function Contact() {
 
             <button 
               type="submit" 
+              aria-label="Send message"
               disabled={formState !== "idle"}
               className="relative w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center overflow-hidden hover:scale-110 transition-transform self-end group"
             >

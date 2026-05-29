@@ -54,7 +54,7 @@ function SolarSystem() {
       <directionalLight position={[10, 10, 10]} intensity={2} />
       
       {/* Center Sun (Shreya) */}
-      <Text position={[0, 0, 0]} fontSize={0.6} color="#FAF8FF" font="/fonts/syne.woff" outlineWidth={0.02} outlineColor="#FF6EB4">
+      <Text position={[0, 0, 0]} fontSize={0.6} color="#FAF8FF" outlineWidth={0.02} outlineColor="#FF6EB4">
         S.S
       </Text>
       

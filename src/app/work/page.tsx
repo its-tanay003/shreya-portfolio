@@ -56,9 +56,9 @@ export default function Work() {
 
           {/* Layout Toggles */}
           <div className="flex gap-4">
-            <button onClick={() => setLayoutMode("gallery")} className={`p-2 transition-colors ${layoutMode === "gallery" ? "text-accent" : "text-foreground/50 hover:text-foreground"}`}><Grid size={20}/></button>
-            <button onClick={() => setLayoutMode("list")} className={`p-2 transition-colors ${layoutMode === "list" ? "text-accent" : "text-foreground/50 hover:text-foreground"}`}><List size={20}/></button>
-            <button onClick={() => setLayoutMode("cinematic")} className={`p-2 transition-colors ${layoutMode === "cinematic" ? "text-accent" : "text-foreground/50 hover:text-foreground"}`}><Maximize size={20}/></button>
+            <button aria-label="Gallery View" onClick={() => setLayoutMode("gallery")} className={`p-2 transition-colors ${layoutMode === "gallery" ? "text-accent" : "text-foreground/50 hover:text-foreground"}`}><Grid size={20}/></button>
+            <button aria-label="List View" onClick={() => setLayoutMode("list")} className={`p-2 transition-colors ${layoutMode === "list" ? "text-accent" : "text-foreground/50 hover:text-foreground"}`}><List size={20}/></button>
+            <button aria-label="Cinematic View" onClick={() => setLayoutMode("cinematic")} className={`p-2 transition-colors ${layoutMode === "cinematic" ? "text-accent" : "text-foreground/50 hover:text-foreground"}`}><Maximize size={20}/></button>
           </div>
         </div>
       </div>

@@ -22,6 +22,7 @@ export function Navbar() {
     { name: "Services", href: "/services" },
     { name: "Skills", href: "/skills" },
     { name: "Journal", href: "/journal" },
+    { name: "Lab", href: "/lab" },
     { name: "Contact", href: "/contact" },
   ]
 
@@ -39,6 +40,7 @@ export function Navbar() {
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 className="hover:scale-110 transition-transform"
                 data-cursor-text="THEME"
+                aria-label="Toggle theme"
               >
                 {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
               </button>
@@ -47,6 +49,7 @@ export function Navbar() {
             <button 
               className="md:hidden" 
               onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
