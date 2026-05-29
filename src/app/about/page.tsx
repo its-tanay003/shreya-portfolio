@@ -245,6 +245,66 @@ export default function About() {
           </div>
         </div>
 
+      <Timeline />
+      </div>
+    </div>
+  )
+}
+
+const timelineData = [
+  {
+    year: "2023 - Present",
+    role: "Freelance Art Director",
+    company: "Independent",
+    desc: "Collaborating with premium brands to create compelling visual narratives, product styling, and spatial designs."
+  },
+  {
+    year: "2022 - 2023",
+    role: "Visual Merchandiser",
+    company: "H&M India",
+    desc: "Executed global campaign guidelines across flagship stores, enhancing customer journey and brand presentation."
+  },
+  {
+    year: "2021",
+    role: "Design Intern",
+    company: "Paperboat",
+    desc: "Assisted in packaging design and brand storytelling campaigns for seasonal product launches."
+  }
+]
+
+function Timeline() {
+  return (
+    <div className="mt-32 pt-32 border-t border-white/10 relative">
+      <h2 className="font-display text-4xl md:text-5xl uppercase mb-24 text-center">Journey So Far</h2>
+      
+      <div className="relative max-w-4xl mx-auto px-4 md:px-0">
+        {/* Vertical Line */}
+        <div className="absolute left-[28px] md:left-1/2 top-0 bottom-0 w-[1px] bg-white/20 md:-translate-x-1/2" />
+        
+        {timelineData.map((item, index) => (
+          <motion.div 
+            key={index}
+            className={`relative flex flex-col md:flex-row gap-8 md:gap-16 mb-24 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Timeline Dot */}
+            <div className="absolute left-[28px] md:left-1/2 w-4 h-4 rounded-full bg-accent -translate-x-1/2 mt-1 shadow-[0_0_15px_var(--color-accent)] z-10" />
+            
+            {/* Content Box */}
+            <div className={`flex-1 ml-16 md:ml-0 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+              <span className="font-mono text-sm text-accent tracking-widest">{item.year}</span>
+              <h3 className="font-display text-2xl uppercase mt-2 mb-1">{item.role}</h3>
+              <h4 className="font-sans font-bold text-foreground/70 uppercase tracking-wider text-sm mb-4">{item.company}</h4>
+              <p className="font-sans text-foreground/60 leading-relaxed text-sm md:w-[80%] inline-block ${index % 2 === 0 ? 'float-right' : 'float-left'}">{item.desc}</p>
+            </div>
+            
+            {/* Empty space for other side on desktop */}
+            <div className="hidden md:block flex-1" />
+          </motion.div>
+        ))}
       </div>
     </div>
   )
