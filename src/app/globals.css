@@ -11,15 +11,56 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
-  --font-sans: var(--font-dm-sans);
-  --font-display: var(--font-syne);
-  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+  --font-serif: var(--font-display);
+  --font-mono: var(--font-mono);
+  --font-accent: var(--font-accent);
 }
 
 :root {
   --background: #FAF8FF; /* Ivory */
   --foreground: #1A1A2E; /* Navy */
   --color-accent: #FF6EB4; /* Pink in light mode */
+
+  /* Fluid type scale — pure clamp() */
+  --text-xs:    clamp(0.70rem,  1.0vw, 0.80rem);
+  --text-sm:    clamp(0.85rem,  1.2vw, 0.95rem);
+  --text-base:  clamp(1.00rem,  1.5vw, 1.10rem);
+  --text-lg:    clamp(1.15rem,  2.0vw, 1.35rem);
+  --text-xl:    clamp(1.50rem,  3.0vw, 2.00rem);
+  --text-2xl:   clamp(2.00rem,  5.0vw, 3.50rem);
+  --text-3xl:   clamp(3.00rem,  8.0vw, 6.00rem);
+  --text-hero:  clamp(4.00rem, 12.0vw, 10.0rem);
+
+  /* Letter spacing */
+  --track-tight:   -0.04em;
+  --track-normal:   0em;
+  --track-wide:     0.06em;
+  --track-widest:   0.20em;
+  --track-ultra:    0.40em;
+
+  /* Line heights */
+  --lead-tight:    1.1;
+  --lead-snug:     1.3;
+  --lead-normal:   1.6;
+  --lead-loose:    1.9;
+
+  /* Fonts — set dynamically via JS theme engine */
+  --font-display:  var(--font-syne), serif;
+  --font-body:     var(--font-dm-sans), sans-serif;
+  --font-mono:     monospace;
+  --font-accent:   var(--font-syne), sans-serif;
+
+  /* Font effect variables */
+  --glow-color:       #6C63FF;
+  --gradient-start:   #6C63FF;
+  --gradient-mid:     #FF6584;
+  --gradient-end:     #00F5FF;
+  
+  --shimmer-gold-1:   #b8860b;
+  --shimmer-gold-2:   #ffd700;
+  --shimmer-gold-3:   #fffacd;
 }
 
 .dark {
@@ -87,3 +128,286 @@ body {
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   }
 }
+
+/* ====================================================== */
+/* FONT EFFECTS LIBRARY                                   */
+/* ====================================================== */
+
+/* Effect 1: gradient */
+.text-gradient {
+  background: linear-gradient(135deg,
+    var(--gradient-start) 0%,
+    var(--gradient-mid)   50%,
+    var(--gradient-end)   100%);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: grad-shift 6s ease infinite;
+}
+@keyframes grad-shift {
+  0%   { background-position:   0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position:   0% 50%; }
+}
+
+/* Effect 2: char-reveal */
+.cr-char {
+  display: inline-block;
+  opacity: 0;
+  transform: rotateX(90deg) translateY(20px);
+  animation: char-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--i) * 0.038s + 0.3s);
+}
+@keyframes char-in {
+  to { opacity: 1; transform: rotateX(0deg) translateY(0); }
+}
+
+/* Effect 3: glitch-hover */
+.text-glitch { position: relative; display: inline-block; }
+.text-glitch::before,
+.text-glitch::after { content: attr(data-text); position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+.text-glitch:hover::before {
+  color: rgba(255, 0, 102, 0.5);
+  animation: g1 0.3s steps(4) infinite;
+  opacity: 1;
+}
+.text-glitch:hover::after {
+  color: rgba(0, 245, 255, 0.5);
+  animation: g2 0.3s steps(4) infinite reverse;
+  opacity: 1;
+}
+@keyframes g1 {
+  0%,100% { clip-path: inset(0 0 90% 0); transform: translate(-3px,0); }
+  25%     { clip-path: inset(30% 0 50% 0); transform: translate(3px,0); }
+  50%     { clip-path: inset(70% 0 10% 0); transform: translate(-2px,0); }
+  75%     { clip-path: inset(10% 0 70% 0); transform: translate(2px,0); }
+}
+@keyframes g2 {
+  0%,100% { clip-path: inset(50% 0 30% 0); transform: translate(3px,0); }
+  25%     { clip-path: inset(10% 0 80% 0); transform: translate(-3px,0); }
+  50%     { clip-path: inset(80% 0  5% 0); transform: translate(1px,0); }
+  75%     { clip-path: inset(20% 0 60% 0); transform: translate(-2px,0); }
+}
+
+/* Effect 4: glitch-full */
+.text-glitch-full {
+  position: relative;
+  display: inline-block;
+  animation: gf-main 4s infinite;
+}
+.text-glitch-full::before { content: attr(data-text); position: absolute; inset: 0; color: #FF0066; animation: gf-a 4s infinite; mix-blend-mode: screen; pointer-events: none;}
+.text-glitch-full::after  { content: attr(data-text); position: absolute; inset: 0; color: #00FFFF; animation: gf-b 4s infinite; mix-blend-mode: screen; pointer-events: none;}
+@keyframes gf-main {
+  0%,92%,100% { transform: none; }
+  93%         { transform: skewX(-5deg); }
+  94%         { transform: skewX(5deg); }
+  95%,96%     { transform: none; }
+}
+@keyframes gf-a {
+  0%,92%,100% { clip-path: none; transform: none; }
+  93%         { clip-path: inset(20% 0 60% 0); transform: translate(-4px,2px); }
+  95%         { clip-path: inset(60% 0 20% 0); transform: translate(4px,-2px); }
+}
+@keyframes gf-b {
+  0%,93%,100% { clip-path: none; transform: none; }
+  94%         { clip-path: inset(40% 0 40% 0); transform: translate(4px,0); }
+  96%         { clip-path: inset(10% 0 80% 0); transform: translate(-4px,0); }
+}
+
+/* Effect 5: neon-flicker */
+.neon-text {
+  color: #fff;
+  text-shadow:
+    0 0  4px #fff,
+    0 0 10px var(--glow-color),
+    0 0 20px var(--glow-color),
+    0 0 40px var(--glow-color),
+    0 0 80px var(--glow-color);
+  animation: neon-flk 3s infinite alternate;
+}
+@keyframes neon-flk {
+  0%,19%,21%,23%,25%,54%,56%,100% {
+    text-shadow: 0 0 4px #fff, 0 0 10px var(--glow-color),
+                 0 0 20px var(--glow-color), 0 0 40px var(--glow-color);
+  }
+  20%,24%,55% { text-shadow: none; opacity: 0.7; }
+}
+
+/* Effect 7: scan-line */
+.text-scan { position: relative; overflow: hidden; display: inline-block; }
+.text-scan::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom,
+    transparent 0%, rgba(255,255,255,.06) 45%,
+    rgba(255,255,255,.14) 50%, rgba(255,255,255,.06) 55%,
+    transparent 100%);
+  background-size: 100% 300%;
+  animation: scan-sweep 2.5s linear infinite;
+  pointer-events: none;
+}
+@keyframes scan-sweep {
+  0%   { background-position: 0 -200%; }
+  100% { background-position: 0  200%; }
+}
+
+/* Effect 8: gold-shimmer */
+.text-shimmer {
+  background: linear-gradient(120deg,
+    var(--shimmer-gold-1) 0%, var(--shimmer-gold-2) 30%,
+    var(--shimmer-gold-3) 50%, var(--shimmer-gold-2) 70%,
+    var(--shimmer-gold-1) 100%);
+  background-size: 250% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer-slide 3s linear infinite;
+}
+@keyframes shimmer-slide {
+  from { background-position: 200% center; }
+  to   { background-position: -200% center; }
+}
+
+/* Effect 9: underscore-draw */
+.text-uline {
+  display: inline;
+  background-image: linear-gradient(var(--gradient-start), var(--gradient-start));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition: background-size 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  padding-bottom: 3px;
+}
+.text-uline:hover,
+.text-uline.in-view { background-size: 100% 2px; }
+
+/* Effect 10: clip-reveal */
+.text-clip {
+  clip-path: inset(0 100% 0 0);
+  animation: clip-wipe 0.9s cubic-bezier(0.77, 0, 0.18, 1) forwards paused;
+  display: inline-block;
+}
+.text-clip.active { animation-play-state: running; }
+@keyframes clip-wipe { to { clip-path: inset(0 0% 0 0); } }
+
+/* Effect 11: stagger-wave */
+[data-wave] .ww {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(25px) rotate(-2deg);
+  animation: wave-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards paused;
+  animation-delay: calc(var(--wi) * 0.07s + 0.4s);
+}
+[data-wave].active .ww { animation-play-state: running; }
+@keyframes wave-in { to { opacity: 1; transform: translateY(0) rotate(0deg); } }
+
+/* Effect 13: pulse-glow */
+.text-pulse {
+  animation: pulse-glow 2.4s ease-in-out infinite;
+}
+@keyframes pulse-glow {
+  0%, 100% {
+    text-shadow:
+      0 0 0px var(--glow-color),
+      0 0 0px var(--glow-color);
+  }
+  50% {
+    text-shadow:
+      0 0 12px var(--glow-color),
+      0 0 28px var(--glow-color);
+  }
+}
+
+/* Effect 14: bounce-in */
+@keyframes bounce-enter {
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Effect 15: word-reveal */
+.wr-word {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: wr-in 0.4s ease-out forwards paused;
+  animation-delay: calc(var(--wi) * 0.05s);
+}
+@keyframes wr-in { to { opacity: 1; transform: translateY(0); } }
+
+/* Effect 16: fade-up */
+.fade-up {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Effect 17: italic-on-hover */
+.text-italic-hover {
+  font-style: normal;
+  transition: font-style 0s, letter-spacing 0.3s, transform 0.3s ease;
+  display: inline-block;
+}
+.text-italic-hover:hover {
+  font-style: italic;
+  letter-spacing: -0.02em;
+  transform: skewX(-4deg);
+}
+
+/* Effect 18: fade-mask */
+.text-fade-mask {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%, black 60%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 40%, black 60%, transparent 100%);
+  opacity: 0;
+  animation: mask-appear 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes mask-appear {
+  to {
+    opacity: 1;
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 100%);
+    mask-image: linear-gradient(to right, black 0%, black 100%);
+  }
+}
+
+/* Effect 19: highlight-sweep */
+.text-highlight {
+  background: linear-gradient(to right, transparent 50%, var(--gradient-start) 50%);
+  background-size: 200% 1.2em;
+  background-position: 0% center;
+  background-repeat: no-repeat;
+  transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  padding: 0 4px;
+  border-radius: 2px;
+}
+.text-highlight:hover,
+.text-highlight.in-view {
+  background-position: -100% center;
+}
+
+/* Bonus: typewriter */
+.typing::after {
+  content: '|';
+  animation: blink 0.7s step-end infinite;
+}
+@keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0; } }
+
+/* Aurora Backdrop Class */
+.aurora-bg {
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    transparent 0deg,
+    var(--glow-color) 120deg,
+    transparent 240deg,
+    var(--gradient-mid) 360deg
+  );
+  animation: aurora-spin 25s linear infinite;
+}
+
+@keyframes aurora-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+

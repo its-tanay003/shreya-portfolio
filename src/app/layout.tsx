@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Syne, DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { MasterThemeProvider } from "@/components/master-theme";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { Cursor } from "@/components/cursor";
 import { Navbar } from "@/components/navbar";
@@ -53,19 +54,21 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <GlobalBackground />
-          <Preloader />
-          <Cursor />
-          <AudioEasterEgg />
-          <SmoothScroll>
-            <Navbar />
-            <main className="flex-grow pt-24">
-              <PageTransition>
-                {children}
-              </PageTransition>
-            </main>
-            <Footer />
-          </SmoothScroll>
+          <MasterThemeProvider overrideProfession="auto">
+            <GlobalBackground />
+            <Preloader />
+            <Cursor />
+            <AudioEasterEgg />
+            <SmoothScroll>
+              <Navbar />
+              <main className="flex-grow pt-24">
+                <PageTransition>
+                  {children}
+                </PageTransition>
+              </main>
+              <Footer />
+            </SmoothScroll>
+          </MasterThemeProvider>
         </ThemeProvider>
       </body>
     </html>
