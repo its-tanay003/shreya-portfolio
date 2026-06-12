@@ -140,7 +140,7 @@ export default function About() {
           >
             {/* Animated clip-path blob portrait */}
             <div 
-              className="relative w-[300px] h-[400px] overflow-hidden transition-all duration-[2000ms] ease-in-out border border-white/20 glass"
+              className="relative w-[300px] h-[400px] overflow-hidden transition-all duration-2000 ease-in-out border border-white/20 glass"
               style={{ borderRadius: blobRadius }}
             >
               <div className="absolute inset-0 bg-foreground/10" />
@@ -229,7 +229,7 @@ export default function About() {
               style={{ transformStyle: "preserve-3d" }}
             >
               {/* Holographic sweep */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out skew-x-12" />
+              <div className="absolute inset-0 bg-linear-to-tr from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out skew-x-12" />
               
               <div className="flex justify-between items-start">
                 <BookOpen className="text-accent" size={24} />
@@ -279,7 +279,7 @@ function Timeline() {
       
       <div className="relative max-w-4xl mx-auto px-4 md:px-0">
         {/* Vertical Line */}
-        <div className="absolute left-[28px] md:left-1/2 top-0 bottom-0 w-[1px] bg-white/20 md:-translate-x-1/2" />
+        <div className="absolute left-[28px] md:left-1/2 top-0 bottom-0 w-px bg-white/20 md:-translate-x-1/2" />
         
         {timelineData.map((item, index) => (
           <motion.div 
@@ -298,7 +298,7 @@ function Timeline() {
               <span className="font-mono text-sm text-accent tracking-widest">{item.year}</span>
               <h3 className="font-display text-2xl uppercase mt-2 mb-1">{item.role}</h3>
               <h4 className="font-sans font-bold text-foreground/70 uppercase tracking-wider text-sm mb-4">{item.company}</h4>
-              <p className="font-sans text-foreground/60 leading-relaxed text-sm md:w-[80%] inline-block ${index % 2 === 0 ? 'float-right' : 'float-left'}">{item.desc}</p>
+              <p className={`font-sans text-foreground/60 leading-relaxed text-sm md:w-[80%] inline-block ${index % 2 === 0 ? 'float-right' : 'float-left'}`}>{item.desc}</p>
             </div>
             
             {/* Empty space for other side on desktop */}

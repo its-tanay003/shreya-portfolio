@@ -4,6 +4,7 @@ import dynamic from "next/dynamic"
 const HeroScene = dynamic(() => import("@/components/hero-scene").then((mod) => mod.HeroScene), { ssr: false })
 import { motion } from "framer-motion"
 import Link from "next/link"
+import { projects } from "@/data/projects"
 
 export default function Home() {
   const nameLetters = "SHREYA SHREE".split("")
@@ -35,15 +36,21 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Subtitle Split Reveal */}
-          <div className="relative h-12 overflow-hidden mt-4">
+          {/* Subtitle Typewriter Reveal */}
+          <div className="relative h-12 mt-4">
             <motion.div
               className="font-sans text-xl tracking-[0.4em] uppercase text-mint"
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.8, delay: 3.5, ease: "easeOut" }}
             >
-              Communication Designer
+              {"Communication Designer".split("").map((char, index) => (
+                <motion.span
+                  key={index}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 3.5 + index * 0.05, duration: 0.1 }}
+                >
+                  {char}
+                </motion.span>
+              ))}
             </motion.div>
           </div>
           
@@ -59,7 +66,7 @@ export default function Home() {
               data-cursor-text="EXPLORE"
             >
               <div className="absolute inset-0 bg-bubblegum/20 backdrop-blur-md border border-white/20 text-white font-sans text-xs uppercase tracking-widest flex items-center justify-center transition-all duration-700
-                [border-radius:60%_40%_30%_70%/60%_30%_70%_40%] animate-[blob_8s_ease-in-out_infinite] group-hover:[border-radius:50%] group-hover:bg-bubblegum group-hover:scale-110"
+                rounded-[60%_40%_30%_70%/60%_30%_70%_40%] animate-[blob_8s_ease-in-out_infinite] group-hover:rounded-[50%] group-hover:bg-bubblegum group-hover:scale-110"
               >
                 <span className="z-10 group-hover:text-white mix-blend-difference text-center">View <br/> Universe</span>
               </div>
@@ -68,9 +75,9 @@ export default function Home() {
         </div>
         
         {/* Double Marquee */}
-        <div className="absolute bottom-10 w-full rotate-[-2deg] scale-110 z-20 pointer-events-none">
+        <div className="absolute bottom-10 w-full -rotate-2 scale-110 z-20 pointer-events-none">
           <div className="glass py-3 overflow-hidden border-y border-white/10 relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background z-10 w-full" />
+            <div className="absolute inset-0 bg-linear-to-r from-background via-transparent to-background z-10 w-full" />
             
             <motion.div 
               className="flex whitespace-nowrap font-display text-sm md:text-xl uppercase tracking-widest text-mint/80 mb-2"
@@ -106,11 +113,7 @@ export default function Home() {
         </div>
 
         <div className="relative h-[80vh] flex flex-col items-center justify-center perspective-1000">
-          {[
-            { title: "H&M Art Direction", color: "bg-bubblegum/20" },
-            { title: "Chocolate Food Styling", color: "bg-gold/20" },
-            { title: "Paperboat Window Display", color: "bg-mint/20" }
-          ].map((project, i) => (
+          {projects.slice(0, 3).map((project, i) => (
             <motion.div
               key={i}
               className={`absolute w-full md:w-3/4 h-[50vh] ${project.color} backdrop-blur-md rounded-3xl border border-white/20 p-8 flex flex-col justify-end overflow-hidden group cursor-pointer`}
@@ -122,8 +125,9 @@ export default function Home() {
               whileHover={{ scale: 1.05, rotateX: 5, rotateY: 5, zIndex: 50 }}
               data-cursor-text="VIEW PROJECT"
             >
+              <Link href={`/work/${project.slug}`} className="absolute inset-0 z-20" />
               {/* Shimmer effect */}
-              <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_2s_infinite] bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12" />
+              <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_2s_infinite] bg-linear-to-r from-transparent via-white/10 to-transparent skew-x-12" />
               {/* Noise overlay */}
               <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')]" />
               
@@ -184,7 +188,7 @@ function HorizontalScroll() {
           {panels.map((panel, i) => (
             <div 
               key={i} 
-              className={`w-screen h-screen flex flex-col items-center justify-center p-12 ${panel.color} flex-shrink-0 relative overflow-hidden`}
+              className={`w-screen h-screen flex flex-col items-center justify-center p-12 ${panel.color} shrink-0 relative overflow-hidden`}
             >
               {/* Floating abstract element */}
               <motion.div 

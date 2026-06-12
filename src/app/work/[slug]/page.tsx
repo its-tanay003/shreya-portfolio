@@ -28,7 +28,7 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
           style={{ y: heroY }} 
           className="absolute inset-0 bg-foreground/10"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background z-10" />
+        <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-background z-10" />
         
         <div className="absolute bottom-24 left-6 md:left-12 z-20 max-w-4xl">
           <Link href="/work" className="inline-flex items-center gap-2 font-sans text-xs uppercase tracking-widest hover:text-accent transition-colors mb-8" data-cursor-text="BACK">
@@ -52,30 +52,49 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
         <div className="w-full md:w-1/4">
           <div className="sticky top-32 flex flex-col gap-8">
             <div>
-              <h4 className="font-sans text-xs uppercase tracking-widest opacity-50 mb-2">Role</h4>
+              <h4 className="font-sans text-xs uppercase tracking-widest opacity-50 mb-2">Category</h4>
               <p className="font-display text-xl uppercase">{project.category}</p>
             </div>
-            <div>
-              <h4 className="font-sans text-xs uppercase tracking-widest opacity-50 mb-2">Year</h4>
-              <p className="font-display text-xl uppercase">2025</p>
-            </div>
-            <div>
-              <h4 className="font-sans text-xs uppercase tracking-widest opacity-50 mb-2">Client</h4>
-              <p className="font-display text-xl uppercase">Internal Concept</p>
-            </div>
+            {project.visualIdentity && (
+              <div>
+                <h4 className="font-sans text-xs uppercase tracking-widest opacity-50 mb-2">Visual Identity</h4>
+                <p className="font-display text-xl uppercase leading-tight">{project.visualIdentity}</p>
+              </div>
+            )}
+            {project.pillars && project.pillars.length > 0 && (
+              <div>
+                <h4 className="font-sans text-xs uppercase tracking-widest opacity-50 mb-2">Pillars</h4>
+                <ul className="flex flex-wrap gap-2">
+                  {project.pillars.map((pillar, i) => (
+                    <li key={i} className="font-display text-xs uppercase px-3 py-1 rounded-full border border-foreground/20">{pillar}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Content & Timeline */}
         <div className="w-full md:w-3/4 flex flex-col gap-24">
-          <motion.p 
-            className="font-sans text-xl md:text-3xl leading-relaxed"
+          <motion.div 
+            className="flex flex-col gap-12"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            {project.description}
-          </motion.p>
+            {project.overview && (
+              <div>
+                <h3 className="font-display text-3xl md:text-5xl uppercase mb-6">Overview</h3>
+                <p className="font-sans text-xl md:text-2xl leading-relaxed opacity-80">{project.overview}</p>
+              </div>
+            )}
+            {project.objective && (
+              <div>
+                <h3 className="font-display text-3xl md:text-5xl uppercase mb-6 text-accent">Objective</h3>
+                <p className="font-sans text-xl md:text-2xl leading-relaxed opacity-80">{project.objective}</p>
+              </div>
+            )}
+          </motion.div>
 
           {/* Curtain Reveal Images */}
           <div className="flex flex-col gap-16">
@@ -85,15 +104,17 @@ export default function ProjectDetail({ params }: { params: Promise<{ slug: stri
           </div>
 
           {/* SVG Drawing Process Timeline */}
-          <div className="py-12 relative">
-            <h3 className="font-display text-3xl uppercase mb-16">The Process</h3>
-            <ProcessTimeline />
-          </div>
+          {project.process && project.process.length > 0 && (
+            <div className="py-12 relative">
+              <h3 className="font-display text-4xl md:text-6xl uppercase mb-16">The Process</h3>
+              <ProcessTimeline steps={project.process} />
+            </div>
+          )}
         </div>
       </div>
 
       {/* Next Project Footer - Slide up effect */}
-      <div className="relative h-screen bg-foreground text-background flex items-center justify-center sticky bottom-0 z-[-1]">
+      <div className="h-screen bg-foreground text-background flex items-center justify-center sticky bottom-0 z-[-1]">
         <div className="text-center">
           <span className="font-sans text-xs uppercase tracking-widest opacity-50 block mb-4">Next Project</span>
           <Link href={`/work/${nextProject.slug}`} className="group cursor-none" data-cursor-text="NEXT">
@@ -127,14 +148,12 @@ function CurtainImage({ index }: { index: number }) {
   )
 }
 
-function ProcessTimeline() {
+function ProcessTimeline({ steps }: { steps: string[] }) {
   const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start center", "end center"]
   })
-
-  const steps = ["Research & Discovery", "Concept Ideation", "Prototyping", "Final Execution"]
 
   return (
     <div ref={ref} className="relative pl-8">
@@ -152,29 +171,29 @@ function ProcessTimeline() {
       {steps.map((step, i) => (
         <div key={i} className="mb-16 relative">
           <motion.div 
-            className="absolute -left-[33px] top-1 w-4 h-4 rounded-full bg-background border-2 border-accent"
+            className="absolute left-[-33px] top-1 w-4 h-4 rounded-full bg-background border-2 border-accent"
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ type: "spring", delay: 0.2 }}
           />
           <motion.h4 
-            className="font-display text-2xl uppercase mb-2"
+            className="font-display text-2xl md:text-4xl uppercase mb-2"
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.5 }}
           >
-            0{i + 1} — {step}
+            0{i + 1}
           </motion.h4>
           <motion.p 
-            className="font-sans text-sm opacity-60"
+            className="font-sans text-lg opacity-80"
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            {step}
           </motion.p>
         </div>
       ))}

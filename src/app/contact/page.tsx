@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { useState } from "react"
 import { Check, ArrowRight } from "lucide-react"
 
@@ -18,6 +18,24 @@ export default function Contact() {
 
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Living Text Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none flex flex-col justify-center opacity-5 dark:opacity-10">
+        <motion.div 
+          className="whitespace-nowrap font-display text-[15vw] uppercase leading-none text-foreground"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+        >
+          LET&apos;S CREATE SOMETHING BEAUTIFUL LET&apos;S CREATE SOMETHING BEAUTIFUL
+        </motion.div>
+        <motion.div 
+          className="whitespace-nowrap font-display text-[15vw] uppercase leading-none text-foreground mt-4"
+          animate={{ x: ["-50%", "0%"] }}
+          transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+        >
+          SAY HELLO SAY HELLO SAY HELLO SAY HELLO SAY HELLO SAY HELLO
+        </motion.div>
+      </div>
+
       <div className="max-w-7xl mx-auto w-full px-6 py-24 flex flex-col lg:flex-row gap-16 relative z-10">
         
         {/* Left Side */}
@@ -28,7 +46,7 @@ export default function Contact() {
             className="inline-flex items-center gap-4 px-6 py-3 rounded-full glass border border-white/20 mb-12 w-max relative overflow-hidden group"
             whileHover={{ scale: 1.05 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 skew-x-12" />
+            <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 skew-x-12" />
             <div className="w-3 h-3 rounded-full bg-mint shadow-[0_0_10px_#00E5C0] animate-pulse" />
             <span className="font-sans text-xs uppercase tracking-widest font-bold">Open for Projects — Fall 2026</span>
           </motion.div>
@@ -112,5 +130,3 @@ export default function Contact() {
     </div>
   )
 }
-
-import { AnimatePresence } from "framer-motion"

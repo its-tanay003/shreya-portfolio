@@ -27,7 +27,7 @@ export default function Journal() {
         {/* Torn Edge SVG Top */}
         <div className="absolute top-0 left-0 w-full h-8 -translate-y-full overflow-hidden flex">
           {Array.from({ length: 20 }).map((_, i) => (
-            <svg key={i} className="h-full w-auto flex-shrink-0 text-[#f8f5f0] dark:text-[#2a2a3a] fill-current" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <svg key={i} className="h-full w-auto shrink-0 text-[#f8f5f0] dark:text-[#2a2a3a] fill-current" viewBox="0 0 100 100" preserveAspectRatio="none">
               <polygon points="0,100 20,40 40,80 60,20 80,60 100,100" />
             </svg>
           ))}
@@ -38,7 +38,7 @@ export default function Journal() {
           {/* Magazine Spread - Featured Post */}
           <div className="flex flex-col lg:flex-row gap-12 border-b border-black/10 dark:border-white/10 pb-24">
             <div className="w-full lg:w-1/2">
-              <h4 className="font-sans text-xs uppercase tracking-widest text-[#FF6EB4] mb-4">Featured Article</h4>
+              <h4 className="font-sans text-xs uppercase tracking-widest text-bubblegum mb-4">Featured Article</h4>
               <h2 className="font-display text-4xl md:text-6xl uppercase leading-[0.9] mb-8">Finding Inspiration in the Mundane</h2>
               
               <div className="columns-1 md:columns-2 gap-8 font-serif text-sm leading-relaxed text-justify opacity-80">
@@ -52,30 +52,37 @@ export default function Journal() {
             </div>
             
             <div className="w-full lg:w-1/2 relative group cursor-none" data-cursor-text="READ">
-              <div className="w-full aspect-[4/5] bg-black/5 dark:bg-white/5 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#00E5C0]/20 to-[#FF6EB4]/20 group-hover:scale-105 transition-transform duration-700" />
+              <div className="w-full aspect-4/5 bg-black/5 dark:bg-white/5 relative overflow-hidden">
+                <div className="absolute inset-0 bg-linear-to-tr from-mint/20 to-bubblegum/20 group-hover:scale-105 transition-transform duration-700" />
               </div>
             </div>
           </div>
 
-          {/* Polaroid Board */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
+          {/* Masonry Layout */}
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
             {posts.map((post, i) => (
               <motion.div 
                 key={i}
-                className="bg-white dark:bg-[#1a1a2e] p-4 pb-16 shadow-xl relative cursor-pointer"
-                initial={{ rotate: i % 3 === 0 ? 3 : i % 3 === 1 ? -2 : 4 }}
-                whileHover={{ rotate: 0, scale: 1.05, zIndex: 10, y: -20, boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)" }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="bg-white dark:bg-[#1a1a2e] p-6 shadow-xl relative cursor-pointer break-inside-avoid group"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02, zIndex: 10, y: -5 }}
+                transition={{ duration: 0.4 }}
               >
-                {/* Pin */}
-                <div className="absolute top-4 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-red-500 shadow-md shadow-red-900/50" />
-                
-                <div className="w-full aspect-square bg-black/5 dark:bg-white/5 mb-4" />
-                <h3 className="font-display text-xl uppercase mb-2 line-clamp-2">{post.title}</h3>
+                <div className={`w-full bg-black/5 dark:bg-white/5 mb-6 relative overflow-hidden ${i % 2 === 0 ? "aspect-4/5" : "aspect-square"}`}>
+                   <div className="absolute inset-0 bg-foreground/5 group-hover:bg-transparent transition-colors duration-500" />
+                </div>
+                <h4 className="font-sans text-xs uppercase tracking-widest text-bubblegum mb-2">{post.category}</h4>
+                <h3 className="font-display text-2xl uppercase mb-4 line-clamp-3 leading-tight group-hover:text-accent transition-colors">{post.title}</h3>
                 <span className="font-sans text-[10px] uppercase tracking-widest opacity-50">{post.date}</span>
               </motion.div>
             ))}
+          </div>
+
+          {/* Infinite Scroll Emulation */}
+          <div className="flex justify-center mt-12 opacity-50 font-sans text-xs uppercase tracking-widest animate-pulse">
+            Loading more entries...
           </div>
 
         </div>

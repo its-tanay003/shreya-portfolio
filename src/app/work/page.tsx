@@ -96,13 +96,13 @@ export default function Work() {
 
 function GalleryCard({ project }: { project: Project }) {
   return (
-    <Link href={`/work/${project.slug}`} className="block group relative overflow-hidden rounded-2xl glass cursor-none" data-cursor-text="EXPLORE">
-      <div className="aspect-[4/5] bg-foreground/5 relative overflow-hidden">
+    <Link href={`/work/${project.slug}`} className="block group relative overflow-hidden rounded-2xl glass cursor-none" data-cursor-text="VIEW →">
+      <div className="aspect-4/5 bg-foreground/5 relative overflow-hidden">
         {/* Hover zoom & grain overlay */}
         <div className="absolute inset-0 bg-foreground/10 group-hover:bg-transparent transition-colors duration-500 z-10" />
         <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 mix-blend-overlay bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.8%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')] z-20 pointer-events-none" />
       </div>
-      <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/80 to-transparent text-white z-30 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+      <div className="absolute bottom-0 left-0 w-full p-6 bg-linear-to-t from-black/80 to-transparent text-white z-30 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
         {/* Variable font weight emulation via text shadow / stroke */}
         <h3 className="font-display text-2xl uppercase group-hover:font-bold transition-all duration-300">{project.title}</h3>
         <span className="font-sans text-xs uppercase tracking-widest text-accent">{project.category}</span>
@@ -120,7 +120,7 @@ function GalleryCard({ project }: { project: Project }) {
 
 function ListCard({ project, index }: { project: Project, index: number }) {
   return (
-    <Link href={`/work/${project.slug}`} className="group flex items-center justify-between py-8 border-b border-foreground/10 hover:border-accent transition-colors cursor-none" data-cursor-text="EXPLORE">
+    <Link href={`/work/${project.slug}`} className="group flex items-center justify-between py-8 border-b border-foreground/10 hover:border-accent transition-colors cursor-none" data-cursor-text="VIEW →">
       <div className="flex items-center gap-8">
         <span className="font-sans text-sm opacity-30">0{index + 1}</span>
         <h3 className="font-display text-3xl md:text-5xl uppercase group-hover:text-accent transition-colors group-hover:translate-x-4 duration-300">{project.title}</h3>
@@ -132,7 +132,7 @@ function ListCard({ project, index }: { project: Project, index: number }) {
 
 function CinematicCard({ project }: { project: Project }) {
   return (
-    <Link href={`/work/${project.slug}`} className="block group relative w-full h-[70vh] rounded-3xl overflow-hidden cursor-none" data-cursor-text="EXPLORE">
+    <Link href={`/work/${project.slug}`} className="block group relative w-full h-[70vh] rounded-3xl overflow-hidden cursor-none" data-cursor-text="VIEW →">
       <div className="absolute inset-0 bg-foreground/5 group-hover:scale-105 transition-transform duration-1000" />
       <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-500" />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 text-center z-10">
